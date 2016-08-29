@@ -25,7 +25,13 @@ int main(int argc, char *argv[])
     appIcon.addFile(":/Icons/AppIcon128");
     app.setWindowIcon(appIcon);
 
-    cv::Mat image = cv::imread(argv[1]);
+    cv::Mat image;
+    if (argc >= 2) {
+        image = cv::imread(argv[1]);
+    }
+    else {
+        image = cv::imread("Lenna.png");
+    }
     cv::imshow("name", image);
     cv::waitKey(0);
 
