@@ -1,6 +1,14 @@
 #include <QApplication>
 #include "mainwindow.h"
 
+#include <QCoreApplication>
+
+#include <stdlib.h>
+
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
@@ -16,6 +24,10 @@ int main(int argc, char *argv[])
     appIcon.addFile(":/Icons/AppIcon32");
     appIcon.addFile(":/Icons/AppIcon128");
     app.setWindowIcon(appIcon);
+
+    cv::Mat image = cv::imread(argv[1]);
+    cv::imshow("name", image);
+    cv::waitKey(0);
 
     MainWindow mainWindow;
     mainWindow.show();

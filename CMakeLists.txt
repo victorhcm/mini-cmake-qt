@@ -16,11 +16,6 @@ project(example VERSION 1.0)
 # Set PROJECT_VERSION_PATCH and PROJECT_VERSION_TWEAK to 0 if not present, needed by add_project_meta
 fix_project_version()
 
-# Set additional project information
-set(COMPANY "Example")
-set(COPYRIGHT "Copyright (c) 2014 Vincent Lee. All rights reserved.")
-set(IDENTIFIER "com.example.Example")
-
 set(SOURCE_FILES
     src/main.cc
     src/mainwindow.cc
@@ -28,15 +23,26 @@ set(SOURCE_FILES
 
 add_project_meta(META_FILES_TO_INCLUDE)
 
-
 set(RESOURCE_FILES example.qrc)
 
 find_package(Qt5Widgets REQUIRED)
+find_package(OpenCV REQUIRED)
+
+# If the package has been found, several variables will
+# be set, you can find the full list with descriptions
+# in the OpenCVConfig.cmake file.
+# Print some message showing some of them
+message(STATUS "OpenCV library status:")
+message(STATUS "    version: ${OpenCV_VERSION}")
+message(STATUS "    libraries: ${OpenCV_LIBS}")
+message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
+
 
 # source_group("UI Files" FILES ${UI_FILES})
 
 add_executable(${PROJECT_NAME} ${OS_BUNDLE} # Expands to WIN32 or MACOS_BUNDLE depending on OS
-    ${SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES}
+    ${SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES} 
 )
+target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
 
 qt5_use_modules(${PROJECT_NAME} Widgets)
