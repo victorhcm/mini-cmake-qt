@@ -6,7 +6,6 @@ services:
 
 before_install:
     - docker pull victorhcm/opencv-qt5
-    - docker run 
     - docker run --rm -v /tmp/.X11-unix/:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY victorhcm/opencv-qt5 "cd /root; git clone https://github.com/victorhcm/mini-cmake-qt; cd mini-cmake-qt; mkdir build; cd build; cmake ..; make; cd ..; ./build/example"
 
 # after_success:
